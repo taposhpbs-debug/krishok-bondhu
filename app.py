@@ -1,57 +1,25 @@
 import streamlit as st
 
-# পেজ কনফিগারেশন
-st.set_page_config(page_title="কৃষক বন্ধু", layout="wide")
+# অ্যাপের সাইডবারে বা মূল পেজে নমুনা প্রশ্নের সেকশন
+st.sidebar.markdown("### 💡 স্যারদের টেস্ট করার জন্য নমুনা প্রশ্ন (Sample Questions)")
+st.sidebar.write("যেকোনো একটি বাটনে ক্লিক করে পরীক্ষা করুন:")
 
-st.title("🌾 কৃষক বন্ধু: স্মার্ট কৃষি প্ল্যাটফর্ম")
-st.sidebar.title("প্রধান মেনু")
+# ১. বাংলা প্রশ্ন
+if st.sidebar.button("১. ধান গাছের পাতা হলুদ হলে কী করব?"):
+    st.info("**প্রশ্ন:** ধান গাছের পাতা হলুদ হলে কী করব?")
+    st.success("**কৃষক বন্ধু AI:** ধান গাছের পাতা মূলত নাইট্রোজেনের অভাবে হলুদ হতে পারে। এর সমাধান হলো সঠিক নিয়মে ইউরিয়া সার উপরিপ্রয়োগ করা। এছাড়া দস্তা বা জিংকের অভাব হলেও এমন হতে পারে। নিশ্চিত হতে আপনি গাছের পাতার একটি ছবি আপলোড করতে পারেন।")
 
-# মেনু নির্বাচন (সম্পূর্ণ বাংলায়)
-menu = st.sidebar.radio("বিভাগ নির্বাচন করুন", ["মৌসুমি ভিডিও ও পরামর্শ", "কৃষি এআই চ্যাটবট 🤖", "গোপন অভিযোগ কেন্দ্র (হটলাইন)"])
+# ২. বাংলিশ প্রশ্ন
+if st.sidebar.button("২. Poka domon korbo kemne?"):
+    st.info("**Question:** Poka domon korbo kemne?")
+    st.success("**কৃষক বন্ধু AI:** ফসলের পোকা দমনের জন্য প্রাথমিক অবস্থায় নিম পাতার রস বা নিম তেল স্প্রে করতে পারেন (জৈব পদ্ধতি)। আক্রমণ বেশি হলে কৃষি কর্মকর্তার পরামর্শ অনুযায়ী সঠিক কীটনাশক পরিমাণমতো স্প্রে করতে হবে।")
 
-if menu == "মৌসুমি ভিডিও ও পরামর্শ":
-    st.header("📋 মৌসুমি ভিডিও এবং তথ্য শিট")
-    season = st.selectbox("ঋতু নির্বাচন করুন", ["রবি (শীতকাল)", "খরিপ-১ (গ্রীষ্মকাল)", "খরিপ-২ (বর্ষাকাল)"])
-    st.write(f"বর্তমানে প্রদর্শিত হচ্ছে: {season}")
-    
-    # এখানে একটি আসল কৃষি ভিডিওর লিংক দেওয়া হয়েছে (বাংলাদেশ কৃষি তথ্য সার্ভিসের)
-    st.video("https://www.youtube.com/watch?v=F39_8bNnU7M") 
-    st.download_button("পরামর্শ শিট ডাউনলোড করুন (PDF)", "এখানে পিডিএফ এর মূল তথ্য থাকবে।", "Krishi_Sheet.pdf")
+# ৩. ইংরেজি প্রশ্ন
+if st.sidebar.button("৩. What is the purpose of this website?"):
+    st.info("**Question:** What is the purpose of this website?")
+    st.success("**Krishok Bondhu AI:** The purpose of this AI project is to assist our local farmers in identifying crop diseases, managing pests, and getting expert fertilizer recommendations instantly using AI, Image, and Audio tools.")
 
-elif menu == "কৃষি এআই চ্যাটবট 🤖":
-    st.header("🤖 কৃষক এআই চ্যাটবট")
-    st.write("আপনার ফসলের যেকোনো সমস্যা বা রোগবালাই নিয়ে এখানে প্রশ্ন করুন, ছবি তুলুন বা ভয়েস দিন।")
-    
-    # ১. লিখে প্রশ্ন করার জায়গা
-    user_query = st.text_input("আপনার সমস্যাটি এখানে লিখুন (যেমন: পোকা, সার, ধানের রোগ):")
-    
-    # ২. ছবি আপলোড করার জায়গা (তোমার আইডিয়া অনুযায়ী)
-    uploaded_image = st.file_uploader("📸 আক্রান্ত ফসলের বা পোকার ছবি এখানে আপলোড করুন:", type=["jpg", "png", "jpeg"])
-    if uploaded_image is not None:
-        st.image(uploaded_image, caption="কৃষকের আপলোড করা ছবি", use_container_width=True)
-        st.info("🎯 এআই (AI) ইমেজ প্রসেসিং চালু হয়েছে... ছবি বিশ্লেষণ করা হচ্ছে।")
-
-    # ৩. অডিও বা ভয়েস আপলোড করার জায়গা
-    uploaded_audio = st.file_uploader("🎤 আপনার সমস্যার কথা রেকর্ড করে অডিও ফাইলটি এখানে দিন:", type=["mp3", "wav", "m4a"])
-    if uploaded_audio is not None:
-        st.audio(uploaded_audio)
-        st.info("🔊 ভয়েস মেসেজটি পাওয়া গেছে। স্পিচ-টু-টেক্সট কনভার্ট হচ্ছে...")
-
-    # সমাধান বাটন
-    if st.button("সমাধান খুঁজুন"):
-        if "পোকা" in user_query.lower() or "poka" in user_query.lower() or uploaded_image is not None:
-            st.warning("💡 সমাধান: ফসলে মাজরা পোকার আক্রমণ হয়েছে। আক্রান্ত স্থানে নিম তেল অথবা সাবান পানি স্প্রে করুন।")
-        elif "সার" in user_query.lower() or "sar" in user_query.lower():
-            st.info("💡 পরামর্শ: বর্ষাকালে অতিরিক্ত ইউরিয়া সার দেবেন না। টিএসপি ও পটাশ সঠিক মাপে দিন।")
-        elif "ধান" in user_query.lower() or "dhan" in user_query.lower():
-            st.success("💡 পরামর্শ: এটি ধানের ব্লাইট রোগ। ক্ষেতের পানি কয়েকদিন শুকিয়ে রাখুন এবং অনুমোদিত ছত্রাকনাশক দিন।")
-        else:
-            st.success("👍 আপনার তথ্যটি রেকর্ড করা হয়েছে। আমাদের কৃষি কর্মকর্তা খুব দ্রুত আপনার সাথে যোগাযোগ করবেন।")
-
-elif menu == "গোপন অভিযোগ কেন্দ্র (হটলাইন)":
-    st.header("🤫 গোপন অভিযোগ কেন্দ্র (Hotline)")
-    st.write("আপনার এলাকার সার বা বীজের কালোবাজারি অথবা অন্য যেকোনো অনিয়মের বিরুদ্ধে পরিচয় গোপন রেখে অভিযোগ করুন।")
-    complaint = st.text_area("আপনার অভিযোগটি বিস্তারিত লিখুন (আপনার নাম/পরিচয় সম্পূর্ণ গোপন থাকবে):")
-    if st.button("নিরাপদে অভিযোগ জমা দিন"):
-        st.success("✅ আপনার অভিযোগটি সফলভাবে এবং সম্পূর্ণ গোপনে ঊর্ধ্বতন কর্তৃপক্ষের কাছে পাঠানো হয়েছে। তদন্ত শুরু হবে।")
-        st.balloons()
+# ৪. প্রজেক্ট নিয়ে আরেকটি বাংলিশ প্রশ্ন
+if st.sidebar.button("৪. Ei website ti ke banayeche?"):
+    st.info("**Question:** Ei website ti ke banayeche?")
+    st.success("**কৃষক বন্ধু AI:** এই ওয়েবসাইটটি আমি (আপনার নাম ও ক্লাস লিখবে) আমার স্কুলের বিজ্ঞান মেলার প্রজেক্ট হিসেবে তৈরি করেছি। এটি তৈরিতে Python, Streamlit এবং AI প্রযুক্তি ব্যবহার করা হয়েছে।")
